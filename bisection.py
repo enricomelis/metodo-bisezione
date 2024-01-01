@@ -27,8 +27,24 @@ def check_existence(f_a, f_b):
     
     return existence
 
-def bisection_method():
-    print("")
+def bisection_method(a, b, function_input, x, f_a_sign, f_b_sign):
+    M = float((a+b)/2)
+    f_M = calc_func(function_input, x, M)
+
+    if(f_M == 0):
+        print(f"Solution found: f(x) at x = {M} is a solution.")
+        return
+
+    f_M_sign = calc_sign(f_M)
+
+    if f_M_sign != f_a_sign:
+        print(f"Solution between {a} and {M}")
+        bisection_method(a, M, function_input, x, f_a_sign, f_M_sign)
+    else:
+        print(f"Solution between {M} and {b}")
+        bisection_method(M, b, function_input, x, f_M_sign, f_b_sign)
+
+
 
 def main():
     function_input = input("Enter a f(x): ")
@@ -38,7 +54,7 @@ def main():
     request_loop = True
     while(request_loop):
         a = float(input("Enter bottom value 'a': "))
-        b = float(input("Enter bottom value 'b': "))
+        b = float(input("Enter top value 'b': "))
 
         if(a < b):
             request_loop = False
@@ -54,21 +70,7 @@ def main():
     if(not(zero_exists)):
         print("There is not solution in the given range, try with another function or another range.")
     else:
-        M = float((a+b)/2)
-        f_M = calc_func(function_input, x, M)
-
-        if(f_M == 0):
-            print(f"Solution found: f(x) at x = {M} is a solution.")
-            return
-
-        f_M_sign = calc_sign(f_M)
-
-        if f_M_sign != f_a_sign:
-            zero_exists = check_existence(f_a, f_M)
-            print(zero_exists)
-        else:
-            zero_exists = check_existence(f_b, f_M)
-            print(zero_exists)
+        bisection_method(a, b, function_input, x, f_a_sign, f_b_sign)
 
 
 main()
