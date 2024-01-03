@@ -21,11 +21,10 @@ def calc_sign(f_x):
 
 def check_existence(f_a, f_b):
     if(f_a * f_b < 0):
-        existence = True
+        return True
     else:
-        existence = False
-    
-    return existence
+        print("Because to use this method we need f(a)*f(b)<0, we can't say if there is any solution.")
+        return False
 
 def bisection_method(a, b, function_input, x, f_a_sign, f_b_sign):
     M = float((a+b)/2)
@@ -51,13 +50,12 @@ def main():
     x = sp.Symbol('x')
 
     # Input Control
-    request_loop = True
-    while(request_loop):
+    while(True):
         a = float(input("Enter bottom value 'a': "))
         b = float(input("Enter top value 'b': "))
 
         if(a < b):
-            request_loop = False
+            break
         
 
     f_a = calc_func(function_input, x, a)
