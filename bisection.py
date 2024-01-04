@@ -1,13 +1,11 @@
-# The script still needs to be finished
-
 import sympy as sp
 
 def calc_func(func_input, x, x0):
     try:
         func = sp.simplify(func_input)
-        f = sp.lambdify(x, func, 'math')
-        result = f(x0)
-        print(f'f(x) = {func} at x = {x0} is {result}')
+        f = sp.lambdify(x, func)
+        result = sp.limit(f(x0), x, x0)
+        print(f'limit of f(x) = {func} for x tends to {x0} is {result}')
         return result
 
     except Exception:
